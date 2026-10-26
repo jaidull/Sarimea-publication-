@@ -308,6 +308,24 @@ footer ul{list-style:none;display:grid;gap:8px;font-size:.92rem}
 .hero-books img{height:auto}
 .nav-cta{white-space:nowrap;flex:none}
 @media (max-width:420px){.brand-name{font-size:.92rem}.brand img{width:38px;height:38px}.nav-cta{padding:8px 12px;font-size:.85rem}}
+/* v3: Facebook + Feedback */
+.btn-fb{background:#1877F2;color:#fff;box-shadow:0 6px 18px rgba(24,119,242,.28)}
+.btn-fb:hover{background:#166fe5}
+.btn-fb .bn{font-family:var(--bn);font-weight:600}
+.fb-pill{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:8px 14px 8px 10px;border-radius:999px;background:#1877F2;color:#fff;font-size:.86rem;font-weight:600;line-height:1.2;box-shadow:0 6px 16px rgba(0,0,0,.18)}
+.fb-pill:hover{background:#166fe5}
+.fb-pill svg,.btn-fb svg{width:20px;height:20px;flex:none}
+.f-fb{margin-top:18px;min-height:44px;padding:10px 16px;font-size:.9rem;text-align:left;justify-content:flex-start}
+footer .f-fb:hover{color:#fff}
+.fb-form-card{max-width:560px;margin:0 auto}
+.stars{display:flex;gap:6px}
+.star{width:44px;height:44px;border-radius:10px;border:1.5px solid var(--line);background:#fff;color:#cfd8d3;display:grid;place-items:center;transition:color .15s,border-color .15s,transform .1s}
+.star svg{width:26px;height:26px}
+.star.on{color:#e0a82e;border-color:#ecdcae;background:var(--gold-100)}
+.star:active{transform:scale(.94)}
+.star:focus-visible{outline:none;box-shadow:0 0 0 4px rgba(19,115,79,.18)}
+.char-count{font-size:.74rem;color:var(--mute);text-align:right}
+@media (max-width:360px){.star{width:40px;height:40px}}
 </style>
 </head>
 <body>
@@ -321,6 +339,8 @@ footer ul{list-style:none;display:grid;gap:8px;font-size:.92rem}
   <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
   <symbol id="i-pin" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M12 21s-7-6.1-7-11.5A7 7 0 0 1 19 9.5C19 14.9 12 21 12 21zM12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></symbol>
   <symbol id="i-bell" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M6 8a6 6 0 1 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10.3 20a1.9 1.9 0 0 0 3.4 0"/></symbol>
+  <symbol id="i-fb" viewBox="0 0 24 24"><path fill="currentColor" d="M24 12.07C24 5.41 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.8-4.7 4.54-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.5c-1.5 0-1.96.93-1.96 1.89v2.26h3.32l-.53 3.5h-2.8V24C19.62 23.1 24 18.1 24 12.07z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5l2.94 5.96 6.58.96-4.76 4.64 1.12 6.55L12 17.52l-5.88 3.09 1.12-6.55L2.48 9.42l6.58-.96z"/></symbol>
   <symbol id="i-cal" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16v14H4zM4 10h16M8 3v4M16 3v4"/></symbol>
 </svg>
 
@@ -359,6 +379,7 @@ footer ul{list-style:none;display:grid;gap:8px;font-size:.92rem}
         <span><svg class="ico"><use href="#i-book"/></svg>Hard copy ₹150 + ₹50 delivery</span>
         <span><svg class="ico"><use href="#i-file"/></svg>PDF ₹100</span>
       </div>
+      <a href="https://www.facebook.com/share/19dDg4ouLj/" class="fb-pill" target="_blank" rel="noopener" aria-label="Follow us on Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg><span><span class="bn">Facebook পেজ ফলো করুন</span> · Follow us</span></a>
     </div>
     <div class="hero-books" aria-hidden="true">
       <img class="b2" src="islam1.webp" alt="" width="800" height="1200">
@@ -473,6 +494,32 @@ footer ul{list-style:none;display:grid;gap:8px;font-size:.92rem}
     </div>
   </div>
 </section>
+
+<section id="feedback" class="section" style="padding-top:0">
+  <div class="container">
+    <div class="section-head"><div class="kicker">Feedback</div><h2>Feedback / <span class="bn">মতামত</span></h2><p>Tell us what you think of our books and service.</p></div>
+    <div class="form-card fb-form-card">
+      <form id="feedbackForm" novalidate>
+        <div id="feedbackAlert" aria-live="polite"></div>
+        <div class="form-grid">
+          <div class="field"><label for="fbName">Your name *</label><input id="fbName" required autocomplete="name" placeholder="Your name"></div>
+          <div class="field"><label for="fbPhone">Phone (optional)</label><input id="fbPhone" type="tel" inputmode="numeric" maxlength="10" autocomplete="tel-national" placeholder="10-digit number"></div>
+        </div>
+        <div class="field"><label id="fbRatingLabel">Rating *</label>
+          <div class="stars" id="fbStars" role="radiogroup" aria-labelledby="fbRatingLabel">
+            <button type="button" class="star" data-star="1" role="radio" aria-checked="false" aria-label="1 star"><svg aria-hidden="true"><use href="#i-star"/></svg></button>
+            <button type="button" class="star" data-star="2" role="radio" aria-checked="false" aria-label="2 stars"><svg aria-hidden="true"><use href="#i-star"/></svg></button>
+            <button type="button" class="star" data-star="3" role="radio" aria-checked="false" aria-label="3 stars"><svg aria-hidden="true"><use href="#i-star"/></svg></button>
+            <button type="button" class="star" data-star="4" role="radio" aria-checked="false" aria-label="4 stars"><svg aria-hidden="true"><use href="#i-star"/></svg></button>
+            <button type="button" class="star" data-star="5" role="radio" aria-checked="false" aria-label="5 stars"><svg aria-hidden="true"><use href="#i-star"/></svg></button>
+          </div>
+        </div>
+        <div class="field"><label for="fbMessage">Your message *</label><textarea id="fbMessage" required maxlength="500" placeholder="Write your feedback…"></textarea><div class="char-count"><span id="fbCount">0</span>/500</div></div>
+        <button type="submit" class="btn btn-primary btn-block" style="margin-top:16px" id="fbSubmit">Send feedback</button>
+      </form>
+    </div>
+  </div>
+</section>
 </main>
 
 <footer>
@@ -490,6 +537,7 @@ footer ul{list-style:none;display:grid;gap:8px;font-size:.92rem}
           <li><a href="tel:+918402849739">Call: +91 84028 49739</a></li>
           <li>Bus Stand, Hailakandi, Assam</li>
         </ul>
+        <a href="https://www.facebook.com/share/19dDg4ouLj/" class="btn btn-fb f-fb" target="_blank" rel="noopener" aria-label="Follow us on Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg><span><span class="bn">Facebook পেজ ফলো করুন</span> / Follow us on Facebook</span></a>
       </div>
       <div>
         <h4>Shop</h4>
@@ -577,14 +625,16 @@ function genOrderId(prefix) {
 }
 function nowText() { return new Date().toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }); }
 function logToSheet(payload) {
-  if (!SHEET_WEBAPP_URL) return;
+  if (!SHEET_WEBAPP_URL) return Promise.resolve();
   try {
-    fetch(SHEET_WEBAPP_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) }).catch(() => {});
-  } catch (e) {}
+    // keepalive: the save finishes even if the page moves on to WhatsApp
+    return fetch(SHEET_WEBAPP_URL, { method: "POST", mode: "no-cors", keepalive: true, headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(payload) }).catch(() => {});
+  } catch (e) { return Promise.resolve(); }
 }
-function openWhatsApp(link) {
-  const w = window.open(link, "_blank", "noopener");
-  if (!w) location.href = link;
+// Opens WhatsApp exactly once, after the sheet save finishes (or 1.5 s at most).
+function openWhatsApp(link, saving) {
+  const wait = new Promise(r => setTimeout(r, 1500));
+  Promise.race([Promise.resolve(saving), wait]).then(() => { location.href = link; });
 }
 const deliveryFor = q => DELIVERY_PER_COPY ? DELIVERY_CHARGE * q : DELIVERY_CHARGE;
 const ICON = id => `<svg class="ico"><use href="#${id}"/></svg>`;
@@ -750,7 +800,7 @@ function submitHard(e) {
   const delivery = deliveryFor(hardQty), total = BOOK_PRICE * hardQty + delivery;
   const orderId = genOrderId(pre ? "SM-PRE" : "SM");
   const date = nowText();
-  logToSheet({ type: "hard_copy_order", orderId, preBooking: pre ? "yes" : "no", bookName: hardBook.titleEn, name, phone, address, landmark, district, pin, qty: hardQty, bookTotal: BOOK_PRICE * hardQty, deliveryTotal: delivery, total, date });
+  const saving = logToSheet({ type: "hard_copy_order", orderId, preBooking: pre ? "yes" : "no", bookName: hardBook.titleEn, name, phone, address, landmark, district, pin, qty: hardQty, bookTotal: BOOK_PRICE * hardQty, deliveryTotal: delivery, total, date });
   const msg = `*${pre ? "Pre-booking" : "New order"} – Hard copy*\n*SARIMEA PUBLICATION*\n\n` +
     `Book: ${hardBook.titleEn} (${hardBook.titleBn})\n` + (pre ? `Release: ${ISLAMER_RELEASE}\n` : "") +
     `Qty: ${hardQty}\nName: ${name}\nPhone: ${phone}\nAddress: ${address}` + (landmark ? `\nLandmark: ${landmark}` : "") +
@@ -758,7 +808,7 @@ function submitHard(e) {
   const link = waLink(msg);
   $("#orderBody").innerHTML = successView({ heading: "Order request sent — we'll confirm on WhatsApp", orderId, link,
     steps: ["Press <b>Send</b> in WhatsApp (it opened with your order).", "We reply with the total and UPI details.", pre ? `Your copy is reserved and delivered after release (${ISLAMER_RELEASE}).` : "After payment, your book is delivered to your address."] });
-  openWhatsApp(link);
+  openWhatsApp(link, saving);
 }
 
 /* ---------- PDF ---------- */
@@ -784,13 +834,13 @@ function submitPdf(e) {
   if (!/^[6-9][0-9]{9}$/.test(phone)) return showError("Enter a valid 10-digit WhatsApp number.");
   const pre = pdfBook.status === "prebook";
   const orderId = genOrderId(pre ? "SM-PDFPRE" : "SM-PDF"), date = nowText();
-  logToSheet({ type: "pdf_order", orderId, preBooking: pre ? "yes" : "no", bookName: pdfBook.titleEn, name, phone, total: PDF_PRICE, date });
+  const saving = logToSheet({ type: "pdf_order", orderId, preBooking: pre ? "yes" : "no", bookName: pdfBook.titleEn, name, phone, total: PDF_PRICE, date });
   const msg = `*${pre ? "Pre-booking" : "New order"} – PDF*\n*SARIMEA PUBLICATION*\n\nBook: ${pdfBook.titleEn} (${pdfBook.titleBn})\n` + (pre ? `Release: ${ISLAMER_RELEASE}\n` : "") +
     `Name: ${name}\nPhone: ${phone}\nPrice: *₹${PDF_PRICE}*\nOrder ID: ${orderId}\nDate: ${date}\n\nPlease send payment details.`;
   const link = waLink(msg);
   $("#orderBody").innerHTML = successView({ heading: "PDF request sent — we'll confirm on WhatsApp", orderId, link,
     steps: ["Press <b>Send</b> in WhatsApp (it opened with your request).", "We reply with UPI details for ₹" + PDF_PRICE + ".", pre ? `The PDF comes on WhatsApp on release day (${ISLAMER_RELEASE}).` : "After payment, the PDF comes on WhatsApp."] });
-  openWhatsApp(link);
+  openWhatsApp(link, saving);
 }
 
 /* ---------- VOICE UP: notify me ---------- */
@@ -809,11 +859,11 @@ function openNotifyModal() {
     if (!name) return showError("Please enter your name.");
     if (!/^[6-9][0-9]{9}$/.test(phone)) return showError("Enter a valid 10-digit WhatsApp number.");
     const date = nowText();
-    logToSheet({ type: "notify_voice_up", name, phone, book: "VOICE UP", date });
+    const saving = logToSheet({ type: "notify_voice_up", name, phone, book: "VOICE UP", date });
     const link = waLink(`*Notify me – VOICE UP*\n*SARIMEA PUBLICATION*\n\nName: ${name}\nPhone: ${phone}\n\nPlease tell me when VOICE UP is released.`);
     $("#orderBody").innerHTML = successView({ heading: "You're on the list!", orderId: "", link,
       steps: ["Press <b>Send</b> in WhatsApp (it opened with your request).", "We message you the day VOICE UP releases."] });
-    openWhatsApp(link);
+    openWhatsApp(link, saving);
   });
 }
 
@@ -829,13 +879,37 @@ $("#publishForm").addEventListener("submit", function (e) {
   if (!bookType) return err("Please select the book type.");
   if (!description) return err("Please write a few lines about the book.");
   const orderId = genOrderId("SM-PUB"), date = nowText();
-  logToSheet({ type: "publish_request", orderId, bookName, author, publisher, mobile, bookType, description, date });
+  const saving = logToSheet({ type: "publish_request", orderId, bookName, author, publisher, mobile, bookType, description, date });
   const link = waLink(`*Publish request*\n*SARIMEA PUBLICATION*\n\nBook: ${bookName}\nAuthor: ${author}` + (publisher ? `\nPublisher: ${publisher}` : "") +
     `\nMobile: ${mobile}\nType: ${bookType}\nAbout: ${description}\nRequest ID: ${orderId}\n\n(I will attach the cover image and book PDF in this chat.)`);
   alertBox.innerHTML = `<div class="alert alert-success">Request ready. WhatsApp is opening — press <b>Send</b>, then attach your cover and PDF there. <a href="${link}" target="_blank" rel="noopener" style="text-decoration:underline;font-weight:600">Open WhatsApp again</a></div>`;
   this.reset();
-  openWhatsApp(link);
+  openWhatsApp(link, saving);
 });
+/* ---------- Feedback ---------- */
+(function () {
+  const form = $("#feedbackForm"); if (!form) return;
+  const alertBox = $("#feedbackAlert"), stars = [...form.querySelectorAll("[data-star]")];
+  let rating = 0;
+  const paint = () => stars.forEach(s => { const on = +s.dataset.star <= rating; s.classList.toggle("on", on); s.setAttribute("aria-checked", +s.dataset.star === rating ? "true" : "false"); });
+  stars.forEach(s => s.addEventListener("click", () => { rating = +s.dataset.star; paint(); }));
+  $("#fbMessage").addEventListener("input", e => { $("#fbCount").textContent = e.target.value.length; });
+  const err = m => { alertBox.innerHTML = `<div class="alert alert-error" role="alert">${m}</div>`; alertBox.scrollIntoView({ block: "nearest" }); };
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const name = $("#fbName").value.trim(), phone = $("#fbPhone").value.trim().replace(/\D/g, ""), message = $("#fbMessage").value.trim().slice(0, 500);
+    if (!name) return err("Please enter your name.");
+    if (phone && !/^[6-9][0-9]{9}$/.test(phone)) return err("Enter a valid 10-digit phone number, or leave it empty.");
+    if (!rating) return err("Please tap a star rating (1–5).");
+    if (!message) return err("Please write your feedback.");
+    const date = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata", dateStyle: "medium", timeStyle: "short" });
+    const btn = $("#fbSubmit"); btn.disabled = true;
+    logToSheet({ type: "feedback", name, phone, rating, message, date }).then(() => {
+      alertBox.innerHTML = `<div class="alert alert-success" role="status"><span class="bn">ধন্যবাদ! আপনার মতামত পেয়েছি</span> / Thank you!</div>`;
+      form.reset(); rating = 0; paint(); $("#fbCount").textContent = "0"; btn.disabled = false;
+    });
+  });
+})();
 </script>
 </body>
 </html>
