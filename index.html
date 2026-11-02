@@ -303,6 +303,25 @@ footer ul{list-style:none;display:grid;gap:8px;font-size:.92rem}
 .price-row{display:flex;justify-content:space-between;padding:3px 0;color:var(--ink-soft)}
 .price-row.total{border-top:1px solid var(--line);margin-top:6px;padding-top:9px;color:var(--ink);font-weight:700;font-size:1rem}
 .note{font-size:.8rem;color:var(--ink-soft);background:var(--gold-100);border:1px solid #ecdcae;border-radius:12px;padding:10px 12px;margin-top:14px}
+.pay-steps{display:flex;gap:6px;margin-bottom:16px}
+.pay-steps span{flex:1;height:5px;border-radius:999px;background:var(--line)}
+.pay-steps span.on{background:var(--green-700)}
+.step-label{font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-600)}
+.step-title{font-family:var(--serif);font-size:1.2rem;color:var(--green-900);line-height:1.3;margin-top:4px}
+.step-title .bn{display:block;font-family:var(--bn);font-size:.95rem;font-weight:600;color:var(--ink-soft);margin-top:2px}
+.qr-card{margin:14px auto 0;max-width:270px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px;box-shadow:var(--shadow-sm);text-align:center}
+.qr-card img{display:block;width:100%;height:auto;border-radius:10px}
+.qr-card .payee{font-size:.8rem;color:var(--ink-soft);margin-top:8px;line-height:1.35}
+.qr-card .payee b{color:var(--ink);font-family:ui-monospace,Menlo,monospace;font-size:.84rem}
+.amount-pill{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:12px;font-family:var(--serif);font-size:1.6rem;font-weight:700;color:var(--green-900)}
+.amount-pill small{font-family:inherit;font-size:.8rem;font-weight:600;color:var(--mute)}
+.apps-line{text-align:center;font-size:.84rem;color:var(--ink-soft);margin-top:2px}
+.pay-actions{display:grid;gap:10px;margin-top:14px}
+.link-btn{background:none;color:var(--green-700);font-weight:600;font-size:.86rem;text-decoration:underline;padding:6px;min-height:36px}
+.pay-row2{display:flex;justify-content:center;gap:4px;flex-wrap:wrap}
+.summary-box{background:var(--green-50);border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:.88rem;color:var(--ink-soft);margin-top:14px}
+.summary-box div{display:flex;justify-content:space-between;gap:12px;padding:2px 0}
+.summary-box b{color:var(--ink);text-align:right}
 .success{text-align:center}
 .success-icon{width:64px;height:64px;border-radius:50%;margin:4px auto 0;background:var(--green-100);color:var(--green-700);display:grid;place-items:center}
 .success h4{font-family:var(--serif);font-size:1.35rem;color:var(--green-900);margin-top:12px;line-height:1.25}
@@ -426,15 +445,15 @@ footer .f-fb:hover{color:#fff}
     <div class="section-head">
       <div class="kicker">Simple &amp; safe</div>
       <h2>How ordering works</h2>
-      <p>No online payment on this site. Every order is confirmed by a real person on WhatsApp.</p>
+      <p>No card or payment gateway on this site. Every order is checked by a real person on WhatsApp.</p>
     </div>
     <div class="steps">
       <div class="step"><h3>Fill the short form</h3><p>Pick a book, hard copy or PDF, and enter your details.</p></div>
       <div class="step"><h3>Send on WhatsApp</h3><p>WhatsApp opens with your order written. Just press <b>Send</b>.</p></div>
-      <div class="step"><h3>We confirm &amp; you pay</h3><p>We reply with the total and our UPI details. Pay only after this.</p></div>
+      <div class="step"><h3>You pay by UPI</h3><p>Hard copy: we reply with the total and UPI details. PDF: pay ₹100 by the QR on this site and send the screenshot.</p></div>
       <div class="step"><h3>Book reaches you</h3><p>Hard copy is delivered in Barak Valley. PDF comes on WhatsApp.</p></div>
     </div>
-    <div class="pay-box"><svg class="ico" style="width:22px;height:22px;color:var(--gold-600)"><use href="#i-shield"/></svg><div id="payNote">Please pay only to the UPI details we send you from <b>+91 84028 49739</b>. Hard copy delivery is available only in <b>Hailakandi, Cachar and Sribhumi (Karimganj)</b> districts.</div></div>
+    <div class="pay-box"><svg class="ico" style="width:22px;height:22px;color:var(--gold-600)"><use href="#i-shield"/></svg><div id="payNote">Pay only to <b>IKIN ALI BARBHUIYA</b>, UPI ID <b>8402849739@ibl</b> (the QR shown here) or to the UPI details we send you from <b>+91 84028 49739</b>. Hard copy delivery is available only in <b>Hailakandi, Cachar and Sribhumi (Karimganj)</b> districts.</div></div>
   </div>
 </section>
 
@@ -498,8 +517,8 @@ footer .f-fb:hover{color:#fff}
     <div class="section-head"><div class="kicker">Questions</div><h2>Good to know</h2></div>
     <div class="faq">
       <details><summary>Where do you deliver hard copies?</summary><p>Only in Barak Valley: Hailakandi, Cachar and Sribhumi (Karimganj) districts. Outside Barak Valley, please order the PDF.</p></details>
-      <details><summary>How do I pay?</summary><p>After you send your order on WhatsApp, we reply with the total and our UPI details. Pay only after that confirmation, and only to the details sent from +91 84028 49739.</p></details>
-      <details><summary>How fast will I get the PDF?</summary><p>We send the PDF on WhatsApp after we check your payment, usually the same day.</p></details>
+      <details><summary>How do I pay?</summary><p><b>PDF:</b> tap “Get PDF”, enter your name and WhatsApp number, pay ₹100 by the UPI QR (PhonePe, GPay, Paytm or any UPI app), then send the payment screenshot on WhatsApp. <b>Hard copy:</b> after you send your order on WhatsApp, we reply with the total and our UPI details; pay only after that confirmation, and only to the details sent from +91 84028 49739.</p></details>
+      <details><summary>How fast will I get the PDF?</summary><p>We send the PDF on WhatsApp after we check your payment screenshot, usually the same day.</p></details>
       <details><summary>What is pre-booking?</summary><p><span class="bn">ইসলামের তালে বিজ্ঞান</span> releases on <span class="js-islamer-date"></span>. Pre-book now and your copy is reserved; we confirm and collect payment on WhatsApp.</p></details>
       <details><summary>When is VOICE UP coming?</summary><p>Very soon. Tap “Notify me on WhatsApp” on the VOICE UP card and we will message you the day it releases.</p></details>
     </div>
@@ -594,6 +613,11 @@ const SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbznM6wF-h_tEw1
 
 // Your UPI ID (e.g. "name@okaxis"). Empty = UPI is shared on WhatsApp only.
 const UPI_ID = "";
+// PDF payment: PhonePe QR (phonepe-qr.jpg) and the UPI ID read from that same QR.
+const PDF_QR_IMAGE = "phonepe-qr.jpg";
+const PDF_UPI_ID = "8402849739@ibl";
+const PDF_UPI_NAME = "IKIN ALI BARBHUIYA";
+const PDF_WA_NUMBER = "918402849739";
 
 const BOOK_PRICE = 150;        // hard copy price per book (₹)
 const DELIVERY_CHARGE = 50;    // delivery charge (₹)
@@ -687,7 +711,7 @@ function bookCard(b) {
     actions = `<div class="price-line"><span class="big">${rupee(BOOK_PRICE)}</span><span class="small">hard copy + ${rupee(DELIVERY_CHARGE)} delivery · PDF ${rupee(PDF_PRICE)}</span></div>
       <div class="book-actions">
         <button class="btn btn-primary" data-hard="${b.id}">${pre ? "Pre-book" : "Buy"} hard copy<small>${rupee(BOOK_PRICE)} + ${rupee(DELIVERY_CHARGE)} delivery</small></button>
-        <button class="btn btn-outline" data-pdf="${b.id}">${pre ? "Pre-book" : "Get"} PDF<small>${rupee(PDF_PRICE)} on WhatsApp</small></button>
+        <button class="btn btn-outline" data-pdf="${b.id}">${pre ? "Pre-book" : "Get"} PDF<small>${rupee(PDF_PRICE)} · UPI QR</small></button>
       </div>`;
   }
   return `<article class="book-card" id="book-${b.id}">
@@ -830,36 +854,103 @@ function submitHard(e) {
   openWhatsApp(link, saving);
 }
 
-/* ---------- PDF ---------- */
-let pdfBook = null;
+/* ---------- PDF: name + WhatsApp → UPI QR (₹100) → screenshot on WhatsApp ---------- */
+let pdfBook = null, pdfBuyer = null;
+const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || (navigator.userAgentData && navigator.userAgentData.mobile);
+const pdfBar = n => `<div class="pay-steps" aria-hidden="true">${[1,2,3].map(i => `<span class="${i <= n ? "on" : ""}"></span>`).join("")}</div>`;
+function upiLink() {
+  return "upi://pay?pa=" + PDF_UPI_ID + "&pn=" + encodeURIComponent(PDF_UPI_NAME) + "&am=" + PDF_PRICE + "&cu=INR";
+}
+function pdfWaText() {
+  const pre = pdfBook.status === "prebook";
+  return `Assalamu alaikum, maine ₹${PDF_PRICE} payment kar diya.\n` +
+    `Naam: ${pdfBuyer.name}\nWhatsApp: ${pdfBuyer.phone}\nBook: ${pdfBook.titleEn} (${pdfBook.titleBn}) PDF` +
+    (pre ? `\nPre-booking (release ${ISLAMER_RELEASE})` : "") +
+    `\nOrder ID: ${pdfBuyer.orderId}\n\nScreenshot bhej raha hoon, PDF chahiye.`;
+}
+function pdfWaLink() { return "https://wa.me/" + PDF_WA_NUMBER + "?text=" + encodeURIComponent(pdfWaText()); }
+
 function openPdfModal(id) {
   pdfBook = BOOKS.find(b => b.id === id);
   const pre = pdfBook.status === "prebook";
-  openModal(pre ? "Pre-book PDF" : "Get PDF on WhatsApp", pdfBook.titleBn + " · " + pdfBook.titleEn, `
-    <form id="pdfForm" novalidate>
+  openModal(pre ? "Pre-book PDF" : "Get the PDF", pdfBook.titleBn + " · " + pdfBook.titleEn, "");
+  pdfStep1();
+}
+function pdfStep1() {
+  const pre = pdfBook.status === "prebook";
+  $("#orderBody").innerHTML = `${pdfBar(1)}
+    <div class="step-label">Step 1 of 3</div>
+    <h4 class="step-title">Your name &amp; WhatsApp number<span class="bn" lang="bn">আপনার নাম ও WhatsApp নম্বর দিন</span></h4>
+    <form id="pdfForm" novalidate style="margin-top:14px">
       <div id="formAlert" aria-live="polite"></div>
-      <div class="field"><label for="dName">Full name *</label><input id="dName" required autocomplete="name" placeholder="Your full name"></div>
-      <div class="field"><label for="dPhone">WhatsApp number *</label><input id="dPhone" type="tel" inputmode="numeric" maxlength="10" required autocomplete="tel-national" placeholder="10-digit number"></div>
+      <div class="field"><label for="dName">Full name / নাম *</label><input id="dName" required autocomplete="name" placeholder="Your full name" value="${pdfBuyer ? esc(pdfBuyer.name) : ""}"></div>
+      <div class="field"><label for="dPhone">WhatsApp number / নম্বর *</label><input id="dPhone" type="tel" inputmode="numeric" maxlength="10" required autocomplete="tel-national" placeholder="10-digit number" value="${pdfBuyer ? esc(pdfBuyer.phone) : ""}"></div>
       <div class="price-box"><div class="price-row total" style="border:0;margin:0;padding:0"><span>PDF price</span><span>${rupee(PDF_PRICE)}</span></div></div>
-      <div class="note">${pre ? `Releases on <b>${ISLAMER_RELEASE}</b>. The PDF is sent on WhatsApp on release day, after payment.` : "The PDF is sent on WhatsApp after we confirm your payment."} No payment now.</div>
-      <button type="submit" class="btn btn-primary btn-block" style="margin-top:16px">${ICON("i-wa")}Send request on WhatsApp</button>
-    </form>`);
+      <div class="note">${pre ? `Releases on <b>${ISLAMER_RELEASE}</b>. The PDF comes on WhatsApp on release day.` : "The PDF comes on WhatsApp after we check your payment."} Next: pay ${rupee(PDF_PRICE)} by UPI QR.</div>
+      <button type="submit" class="btn btn-primary btn-block" style="margin-top:16px">Next: pay ${rupee(PDF_PRICE)} →</button>
+    </form>`;
   $("#pdfForm").addEventListener("submit", submitPdf);
 }
 function submitPdf(e) {
   e.preventDefault();
   const name = $("#dName").value.trim(), phone = $("#dPhone").value.trim().replace(/\D/g, "");
-  if (!name) return showError("Please enter your name.");
-  if (!/^[6-9][0-9]{9}$/.test(phone)) return showError("Enter a valid 10-digit WhatsApp number.");
+  if (!name) return showError("Please enter your name. / নাম লিখুন।");
+  if (!/^[6-9][0-9]{9}$/.test(phone)) return showError("Enter a valid 10-digit WhatsApp number. / সঠিক ১০ সংখ্যার নম্বর দিন।");
   const pre = pdfBook.status === "prebook";
-  const orderId = genOrderId(pre ? "SM-PDFPRE" : "SM-PDF"), date = nowText();
-  const saving = logToSheet({ type: "pdf_order", orderId, preBooking: pre ? "yes" : "no", bookName: pdfBook.titleEn, name, phone, total: PDF_PRICE, date });
-  const msg = `*${pre ? "Pre-booking" : "New order"} – PDF*\n*SARIMEA PUBLICATION*\n\nBook: ${pdfBook.titleEn} (${pdfBook.titleBn})\n` + (pre ? `Release: ${ISLAMER_RELEASE}\n` : "") +
-    `Name: ${name}\nPhone: ${phone}\nPrice: *₹${PDF_PRICE}*\nOrder ID: ${orderId}\nDate: ${date}\n\nPlease send payment details.`;
-  const link = waLink(msg);
-  $("#orderBody").innerHTML = successView({ heading: "PDF request sent — we'll confirm on WhatsApp", orderId, link,
-    steps: ["Press <b>Send</b> in WhatsApp (it opened with your request).", "We reply with UPI details for ₹" + PDF_PRICE + ".", pre ? `The PDF comes on WhatsApp on release day (${ISLAMER_RELEASE}).` : "After payment, the PDF comes on WhatsApp."] });
-  openWhatsApp(link, saving);
+  const keep = pdfBuyer && pdfBuyer.orderId && pdfBuyer.book === pdfBook.id;
+  pdfBuyer = { name, phone, book: pdfBook.id, orderId: keep ? pdfBuyer.orderId : genOrderId(pre ? "SM-PDFPRE" : "SM-PDF") };
+  pdfStep2();
+}
+function pdfStep2() {
+  $("#orderBody").innerHTML = `${pdfBar(2)}
+    <div class="step-label">Step 2 of 3</div>
+    <h4 class="step-title">₹${PDF_PRICE} pay karein<span class="bn" lang="bn">QR স্ক্যান করে ₹${PDF_PRICE} পেমেন্ট করুন</span></h4>
+    <div class="qr-card">
+      <img src="${PDF_QR_IMAGE}" alt="PhonePe UPI QR code to pay ₹${PDF_PRICE}" width="880" height="876">
+      <div class="payee">${esc(PDF_UPI_NAME)}<br>UPI ID: <b>${esc(PDF_UPI_ID)}</b></div>
+    </div>
+    <div class="amount-pill">${rupee(PDF_PRICE)} <small>only</small></div>
+    <div class="apps-line">PhonePe / GPay / Paytm / any UPI app</div>
+    <div class="pay-actions">
+      ${isMobile() ? `<a class="btn btn-primary btn-block" id="upiBtn" href="${upiLink()}">Pay with UPI app<small>₹${PDF_PRICE}</small></a>` : ""}
+      <div class="pay-row2">
+        <a class="link-btn" href="${PDF_QR_IMAGE}" download="Sarimea-UPI-QR.jpg">Save QR</a>
+        <button type="button" class="link-btn" id="copyUpi">Copy UPI ID</button>
+      </div>
+    </div>
+    <div class="note">${isMobile() ? "Same phone? Tap <b>Pay with UPI app</b>, or save the QR and scan it from your gallery in PhonePe / GPay. " : ""}Pay exactly <b>${rupee(PDF_PRICE)}</b> and take a <b>screenshot</b> of the payment. / পেমেন্টের স্ক্রিনশট নিন।</div>
+    <button type="button" class="btn btn-primary btn-block" id="paidNext" style="margin-top:16px">Payment ho gaya → Next</button>
+    <div style="text-align:center;margin-top:6px"><button type="button" class="link-btn" id="pdfBack1">← Back</button></div>`;
+  $("#paidNext").addEventListener("click", pdfStep3);
+  $("#pdfBack1").addEventListener("click", pdfStep1);
+  $("#copyUpi").addEventListener("click", e => {
+    const b = e.currentTarget, done = () => { b.textContent = "Copied ✓"; setTimeout(() => b.textContent = "Copy UPI ID", 1800); };
+    if (navigator.clipboard) navigator.clipboard.writeText(PDF_UPI_ID).then(done, () => prompt("UPI ID", PDF_UPI_ID));
+    else prompt("UPI ID", PDF_UPI_ID);
+  });
+}
+function pdfStep3() {
+  const pre = pdfBook.status === "prebook";
+  $("#orderBody").innerHTML = `${pdfBar(3)}
+    <div class="step-label">Step 3 of 3</div>
+    <h4 class="step-title">Screenshot WhatsApp pe bhejein<span class="bn" lang="bn">পেমেন্টের স্ক্রিনশট WhatsApp-এ পাঠান</span></h4>
+    <div class="summary-box">
+      <div><span>Name</span><b>${esc(pdfBuyer.name)}</b></div>
+      <div><span>WhatsApp</span><b>${esc(pdfBuyer.phone)}</b></div>
+      <div><span>Book</span><b>${esc(pdfBook.titleEn)} PDF</b></div>
+      <div><span>Paid</span><b>${rupee(PDF_PRICE)}</b></div>
+    </div>
+    <ol class="next-steps">
+      <li><span>Tap the green button. WhatsApp opens with your message ready.</span></li>
+      <li><span>Attach your <b>payment screenshot</b> and press <b>Send</b>.</span></li>
+      <li><span>${pre ? `The PDF comes on WhatsApp on release day (${ISLAMER_RELEASE}).` : "We check the payment and send the PDF on WhatsApp."}</span></li>
+    </ol>
+    <a class="btn btn-wa btn-block" id="paidWa" href="${pdfWaLink()}" target="_blank" rel="noopener" style="margin-top:16px">${ICON("i-wa")}Payment ho gaya – WhatsApp pe screenshot bhejein</a>
+    <div style="text-align:center;margin-top:6px"><button type="button" class="link-btn" id="pdfBack2">← Back to QR</button></div>`;
+  $("#pdfBack2").addEventListener("click", pdfStep2);
+  $("#paidWa").addEventListener("click", () => {
+    logToSheet({ type: "pdf_order", orderId: pdfBuyer.orderId, preBooking: pre ? "yes" : "no", bookName: pdfBook.titleEn, name: pdfBuyer.name, phone: pdfBuyer.phone, total: PDF_PRICE, date: nowText() });
+  });
 }
 
 /* ---------- VOICE UP: notify me ---------- */
