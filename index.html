@@ -112,6 +112,8 @@ header{position:sticky;top:0;z-index:50;background:rgba(251,249,243,.92);backdro
 .btn-wa:hover{background:#1a9149}
 .btn-block{width:100%}
 .btn small{font-weight:500;opacity:.85;font-size:.78rem}
+.btn-txt{display:flex;flex-direction:column;align-items:center;gap:2px}
+.btn .bn-sub{font-family:var(--bn);font-weight:600;font-size:.84rem;opacity:.92}
 .ico{width:18px;height:18px;flex:none}
 
 /* Hero */
@@ -453,7 +455,7 @@ footer .f-fb:hover{color:#fff}
       <div class="step"><h3>You pay by UPI</h3><p>Hard copy: we reply with the total and UPI details. PDF: pay ₹100 by the QR on this site and send the screenshot.</p></div>
       <div class="step"><h3>Book reaches you</h3><p>Hard copy is delivered in Barak Valley. PDF comes on WhatsApp.</p></div>
     </div>
-    <div class="pay-box"><svg class="ico" style="width:22px;height:22px;color:var(--gold-600)"><use href="#i-shield"/></svg><div id="payNote">Pay only to <b>IKIN ALI BARBHUIYA</b>, UPI ID <b>8402849739@ibl</b> (the QR shown here) or to the UPI details we send you from <b>+91 84028 49739</b>. Hard copy delivery is available only in <b>Hailakandi, Cachar and Sribhumi (Karimganj)</b> districts.</div></div>
+    <div class="pay-box"><svg class="ico" style="width:22px;height:22px;color:var(--gold-600)"><use href="#i-shield"/></svg><div id="payNote">Pay only to UPI ID <b>8402849739@ibl</b> (the QR shown here) or to the UPI details we send you from <b>+91 84028 49739</b>. Hard copy delivery is available only in <b>Hailakandi, Cachar and Sribhumi (Karimganj)</b> districts.<span lang="bn" style="display:block;font-family:var(--bn);margin-top:4px">শুধু UPI ID <b>8402849739@ibl</b>-এ (এখানে দেখানো QR) অথবা <b>+91 84028 49739</b> থেকে পাঠানো UPI বিবরণে পেমেন্ট করুন।</span></div></div>
   </div>
 </section>
 
@@ -616,7 +618,7 @@ const UPI_ID = "";
 // PDF payment: PhonePe QR (phonepe-qr.jpg) and the UPI ID read from that same QR.
 const PDF_QR_IMAGE = "phonepe-qr.jpg";
 const PDF_UPI_ID = "8402849739@ibl";
-const PDF_UPI_NAME = "IKIN ALI BARBHUIYA";
+const PDF_UPI_NAME = "Sarimea Publication"; // shown only inside the UPI app link, never as a payee name on the page
 const PDF_WA_NUMBER = "918402849739";
 
 const BOOK_PRICE = 150;        // hard copy price per book (₹)
@@ -661,6 +663,8 @@ const AUTHOR_BN = "মোঃ জাইদুল হাসান বড়ভু�
 const $ = (s, el = document) => el.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const rupee = n => "₹" + n;
+const bnNum = n => String(n).replace(/[0-9]/g, d => "০১২৩৪৫৬৭৮৯"[d]);
+const rupeeBn = n => "₹" + bnNum(n);
 const waLink = text => "https://api.whatsapp.com/send?phone=" + WHATSAPP_NUMBER + "&text=" + encodeURIComponent(text);
 function genOrderId(prefix) {
   const d = new Date(), p = n => String(n).padStart(2, "0");
@@ -863,10 +867,11 @@ function upiLink() {
 }
 function pdfWaText() {
   const pre = pdfBook.status === "prebook";
-  return `Assalamu alaikum, maine ₹${PDF_PRICE} payment kar diya.\n` +
-    `Naam: ${pdfBuyer.name}\nWhatsApp: ${pdfBuyer.phone}\nBook: ${pdfBook.titleEn} (${pdfBook.titleBn}) PDF` +
+  return `Assalamu Alaikum.\nI have paid ₹${PDF_PRICE} for the PDF.\n\n` +
+    `Name: ${pdfBuyer.name}\nWhatsApp: ${pdfBuyer.phone}\nBook: ${pdfBook.titleEn} (${pdfBook.titleBn}) PDF` +
     (pre ? `\nPre-booking (release ${ISLAMER_RELEASE})` : "") +
-    `\nOrder ID: ${pdfBuyer.orderId}\n\nScreenshot bhej raha hoon, PDF chahiye.`;
+    `\nOrder ID: ${pdfBuyer.orderId}\n\nSending the payment screenshot now. Please send the PDF.` +
+    `\nআমি PDF-এর জন্য ${rupeeBn(PDF_PRICE)} পেমেন্ট করেছি। পেমেন্টের স্ক্রিনশট পাঠাচ্ছি।`;
 }
 function pdfWaLink() { return "https://wa.me/" + PDF_WA_NUMBER + "?text=" + encodeURIComponent(pdfWaText()); }
 
@@ -886,8 +891,8 @@ function pdfStep1() {
       <div class="field"><label for="dName">Full name / নাম *</label><input id="dName" required autocomplete="name" placeholder="Your full name" value="${pdfBuyer ? esc(pdfBuyer.name) : ""}"></div>
       <div class="field"><label for="dPhone">WhatsApp number / নম্বর *</label><input id="dPhone" type="tel" inputmode="numeric" maxlength="10" required autocomplete="tel-national" placeholder="10-digit number" value="${pdfBuyer ? esc(pdfBuyer.phone) : ""}"></div>
       <div class="price-box"><div class="price-row total" style="border:0;margin:0;padding:0"><span>PDF price</span><span>${rupee(PDF_PRICE)}</span></div></div>
-      <div class="note">${pre ? `Releases on <b>${ISLAMER_RELEASE}</b>. The PDF comes on WhatsApp on release day.` : "The PDF comes on WhatsApp after we check your payment."} Next: pay ${rupee(PDF_PRICE)} by UPI QR.</div>
-      <button type="submit" class="btn btn-primary btn-block" style="margin-top:16px">Next: pay ${rupee(PDF_PRICE)} →</button>
+      <div class="note">${pre ? `Releases on <b>${ISLAMER_RELEASE}</b>. The PDF comes on WhatsApp on release day.` : "The PDF comes on WhatsApp after we check your payment."} Next: pay ${rupee(PDF_PRICE)} by UPI QR.<span lang="bn" style="display:block;font-family:var(--bn);font-size:.92em;color:var(--ink-soft)">পরের ধাপে UPI QR দিয়ে ${rupeeBn(PDF_PRICE)} পেমেন্ট করুন।</span></div>
+      <button type="submit" class="btn btn-primary btn-block" style="margin-top:16px"><span class="btn-txt">Next: Pay ${rupee(PDF_PRICE)} →<span class="bn-sub" lang="bn">পরবর্তী: ${rupeeBn(PDF_PRICE)} পেমেন্ট করুন</span></span></button>
     </form>`;
   $("#pdfForm").addEventListener("submit", submitPdf);
 }
@@ -904,27 +909,27 @@ function submitPdf(e) {
 function pdfStep2() {
   $("#orderBody").innerHTML = `${pdfBar(2)}
     <div class="step-label">Step 2 of 3</div>
-    <h4 class="step-title">₹${PDF_PRICE} pay karein<span class="bn" lang="bn">QR স্ক্যান করে ₹${PDF_PRICE} পেমেন্ট করুন</span></h4>
+    <h4 class="step-title">Scan the QR and pay ₹${PDF_PRICE}<span class="bn" lang="bn">QR স্ক্যান করে ${rupeeBn(PDF_PRICE)} পেমেন্ট করুন</span></h4>
     <div class="qr-card">
       <img src="${PDF_QR_IMAGE}" alt="PhonePe UPI QR code to pay ₹${PDF_PRICE}" width="880" height="876">
-      <div class="payee">${esc(PDF_UPI_NAME)}<br>UPI ID: <b>${esc(PDF_UPI_ID)}</b></div>
+      <div class="payee">UPI ID: <b>${esc(PDF_UPI_ID)}</b></div>
     </div>
-    <div class="amount-pill">${rupee(PDF_PRICE)} <small>only</small></div>
-    <div class="apps-line">PhonePe / GPay / Paytm / any UPI app</div>
+    <div class="amount-pill">${rupee(PDF_PRICE)} <small>only · <span lang="bn" style="font-family:var(--bn)">মাত্র</span></small></div>
+    <div class="apps-line">PhonePe / GPay / Paytm / any UPI app<span lang="bn" style="display:block;font-family:var(--bn)">যেকোনো UPI অ্যাপ দিয়ে পেমেন্ট করা যাবে</span></div>
     <div class="pay-actions">
-      ${isMobile() ? `<a class="btn btn-primary btn-block" id="upiBtn" href="${upiLink()}">Pay with UPI app<small>₹${PDF_PRICE}</small></a>` : ""}
+      ${isMobile() ? `<a class="btn btn-primary btn-block" id="upiBtn" href="${upiLink()}"><span class="btn-txt">Pay with UPI app · ₹${PDF_PRICE}<span class="bn-sub" lang="bn">UPI অ্যাপে পেমেন্ট করুন</span></span></a>` : ""}
       <div class="pay-row2">
-        <a class="link-btn" href="${PDF_QR_IMAGE}" download="Sarimea-UPI-QR.jpg">Save QR</a>
-        <button type="button" class="link-btn" id="copyUpi">Copy UPI ID</button>
+        <a class="link-btn" href="${PDF_QR_IMAGE}" download="Sarimea-UPI-QR.jpg">Save QR · <span lang="bn">QR সেভ করুন</span></a>
+        <button type="button" class="link-btn" id="copyUpi">Copy UPI ID · <span lang="bn">UPI ID কপি করুন</span></button>
       </div>
     </div>
-    <div class="note">${isMobile() ? "Same phone? Tap <b>Pay with UPI app</b>, or save the QR and scan it from your gallery in PhonePe / GPay. " : ""}Pay exactly <b>${rupee(PDF_PRICE)}</b> and take a <b>screenshot</b> of the payment. / পেমেন্টের স্ক্রিনশট নিন।</div>
-    <button type="button" class="btn btn-primary btn-block" id="paidNext" style="margin-top:16px">Payment ho gaya → Next</button>
-    <div style="text-align:center;margin-top:6px"><button type="button" class="link-btn" id="pdfBack1">← Back</button></div>`;
+    <div class="note">${isMobile() ? "Same phone? Tap <b>Pay with UPI app</b>, or save the QR and scan it from your gallery in PhonePe / GPay. " : ""}Pay exactly <b>${rupee(PDF_PRICE)}</b> and take a <b>screenshot</b> of the payment.<span lang="bn" style="display:block;font-family:var(--bn);margin-top:4px">${isMobile() ? "একই ফোনে? <b>Pay with UPI app</b> চাপুন, অথবা QR সেভ করে PhonePe / GPay-তে গ্যালারি থেকে স্ক্যান করুন। " : ""}ঠিক <b>${rupeeBn(PDF_PRICE)}</b> পেমেন্ট করুন এবং পেমেন্টের <b>স্ক্রিনশট</b> নিন।</span></div>
+    <button type="button" class="btn btn-primary btn-block" id="paidNext" style="margin-top:16px"><span class="btn-txt">I have paid → Next<span class="bn-sub" lang="bn">পেমেন্ট করেছি → পরবর্তী</span></span></button>
+    <div style="text-align:center;margin-top:6px"><button type="button" class="link-btn" id="pdfBack1">← Back · <span lang="bn">পিছনে</span></button></div>`;
   $("#paidNext").addEventListener("click", pdfStep3);
   $("#pdfBack1").addEventListener("click", pdfStep1);
   $("#copyUpi").addEventListener("click", e => {
-    const b = e.currentTarget, done = () => { b.textContent = "Copied ✓"; setTimeout(() => b.textContent = "Copy UPI ID", 1800); };
+    const b = e.currentTarget, done = () => { const was = b.innerHTML; b.textContent = "Copied ✓ · কপি হয়েছে"; setTimeout(() => b.innerHTML = was, 1800); };
     if (navigator.clipboard) navigator.clipboard.writeText(PDF_UPI_ID).then(done, () => prompt("UPI ID", PDF_UPI_ID));
     else prompt("UPI ID", PDF_UPI_ID);
   });
@@ -933,7 +938,7 @@ function pdfStep3() {
   const pre = pdfBook.status === "prebook";
   $("#orderBody").innerHTML = `${pdfBar(3)}
     <div class="step-label">Step 3 of 3</div>
-    <h4 class="step-title">Screenshot WhatsApp pe bhejein<span class="bn" lang="bn">পেমেন্টের স্ক্রিনশট WhatsApp-এ পাঠান</span></h4>
+    <h4 class="step-title">Send the payment screenshot on WhatsApp<span class="bn" lang="bn">পেমেন্টের স্ক্রিনশট WhatsApp-এ পাঠান</span></h4>
     <div class="summary-box">
       <div><span>Name</span><b>${esc(pdfBuyer.name)}</b></div>
       <div><span>WhatsApp</span><b>${esc(pdfBuyer.phone)}</b></div>
@@ -941,12 +946,12 @@ function pdfStep3() {
       <div><span>Paid</span><b>${rupee(PDF_PRICE)}</b></div>
     </div>
     <ol class="next-steps">
-      <li><span>Tap the green button. WhatsApp opens with your message ready.</span></li>
-      <li><span>Attach your <b>payment screenshot</b> and press <b>Send</b>.</span></li>
-      <li><span>${pre ? `The PDF comes on WhatsApp on release day (${ISLAMER_RELEASE}).` : "We check the payment and send the PDF on WhatsApp."}</span></li>
+      <li><span>Tap the green button. WhatsApp opens with your message ready.<span lang="bn" style="display:block;font-family:var(--bn);font-size:.92em;color:var(--ink-soft)">সবুজ বোতামে চাপুন — WhatsApp-এ আপনার মেসেজ লেখা থাকবে।</span></span></li>
+      <li><span>Attach your <b>payment screenshot</b> and press <b>Send</b>.<span lang="bn" style="display:block;font-family:var(--bn);font-size:.92em;color:var(--ink-soft)">পেমেন্টের স্ক্রিনশট যুক্ত করে <b>Send</b> চাপুন।</span></span></li>
+      <li><span>${pre ? `The PDF comes on WhatsApp on release day (${ISLAMER_RELEASE}).<span lang="bn" style="display:block;font-family:var(--bn);font-size:.92em;color:var(--ink-soft)">প্রকাশের দিন PDF WhatsApp-এ পাঠানো হবে।</span>` : `We check the payment and send the PDF on WhatsApp.<span lang="bn" style="display:block;font-family:var(--bn);font-size:.92em;color:var(--ink-soft)">পেমেন্ট যাচাই করে PDF WhatsApp-এ পাঠানো হবে।</span>`}</span></li>
     </ol>
-    <a class="btn btn-wa btn-block" id="paidWa" href="${pdfWaLink()}" target="_blank" rel="noopener" style="margin-top:16px">${ICON("i-wa")}Payment ho gaya – WhatsApp pe screenshot bhejein</a>
-    <div style="text-align:center;margin-top:6px"><button type="button" class="link-btn" id="pdfBack2">← Back to QR</button></div>`;
+    <a class="btn btn-wa btn-block" id="paidWa" href="${pdfWaLink()}" target="_blank" rel="noopener" style="margin-top:16px">${ICON("i-wa")}<span class="btn-txt">I have paid – Send screenshot on WhatsApp<span class="bn-sub" lang="bn">পেমেন্ট করেছি – WhatsApp-এ স্ক্রিনশট পাঠান</span></span></a>
+    <div style="text-align:center;margin-top:6px"><button type="button" class="link-btn" id="pdfBack2">← Back to QR · <span lang="bn">QR-এ ফিরে যান</span></button></div>`;
   $("#pdfBack2").addEventListener("click", pdfStep2);
   $("#paidWa").addEventListener("click", () => {
     logToSheet({ type: "pdf_order", orderId: pdfBuyer.orderId, preBooking: pre ? "yes" : "no", bookName: pdfBook.titleEn, name: pdfBuyer.name, phone: pdfBuyer.phone, total: PDF_PRICE, date: nowText() });
