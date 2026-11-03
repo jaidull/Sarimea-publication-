@@ -471,7 +471,7 @@ footer .f-fb:hover{color:#fff}
       <div class="books-by">
         <span class="chip bn">তরিকায়ে নকশবন্দী মুজাদ্দেদী</span>
         <span class="chip bn">ইসলামের তালে বিজ্ঞান</span>
-        <span class="chip gold">VOICE UP · coming soon</span>
+        <span class="chip gold">VOICE UP · PDF available</span>
       </div>
     </div>
   </div>
@@ -522,7 +522,7 @@ footer .f-fb:hover{color:#fff}
       <details><summary>How do I pay?</summary><p><b>PDF:</b> tap “Get PDF”, enter your name and WhatsApp number, pay ₹100 by the UPI QR (PhonePe, GPay, Paytm or any UPI app), then send the payment screenshot on WhatsApp. <b>Hard copy:</b> tap “Buy hard copy”, fill in your address, pay the total (book + delivery) by the UPI QR shown, then send the payment screenshot on WhatsApp. Pay only to UPI ID 8402849739@ibl.</p></details>
       <details><summary>How fast will I get the PDF?</summary><p>We send the PDF on WhatsApp after we check your payment screenshot, usually the same day.</p></details>
       <details><summary>What is pre-booking?</summary><p><span class="bn">ইসলামের তালে বিজ্ঞান</span> releases on <span class="js-islamer-date"></span>. Pre-book now and your copy is reserved; we confirm and collect payment on WhatsApp.</p></details>
-      <details><summary>When is VOICE UP coming?</summary><p>Very soon. Tap “Notify me on WhatsApp” on the VOICE UP card and we will message you the day it releases.</p></details>
+      <details><summary>Is VOICE UP available?</summary><p>Yes, the PDF is available now. Tap “Get PDF” on the VOICE UP card to order it on WhatsApp. The hard copy is coming soon.</p></details>
     </div>
   </div>
 </section>
@@ -650,10 +650,10 @@ const BOOKS = [
     images: ["islam1.webp", "islam2.webp", "islam3.webp"]
   },
   {
-    id: "voiceup", status: "soon",
+    id: "voiceup", status: "pdf", pdfPrice: null, // pdfPrice: set a number (e.g. 100) to use the normal UPI QR PDF flow
     titleBn: "VOICE UP", titleEn: "English pronunciation for Bengali speakers",
     desc: "Speak English with clear, confident pronunciation — explained step by step in Bengali, with IPA made simple.",
-    chips: ["Bengali + English", "Coming soon"],
+    chips: ["Bengali + English", "PDF available"],
     images: ["voiceup.webp"]
   }
 ];
@@ -704,13 +704,21 @@ if (UPI_ID) $("#payNote").innerHTML += ` Our UPI ID: <b>${esc(UPI_ID)}</b>.`;
 function bookCard(b) {
   const badge = b.status === "available" ? `<span class="badge badge-live">Available now</span>`
     : b.status === "prebook" ? `<span class="badge badge-pre">Pre-booking open</span>`
+    : b.status === "pdf" ? `<span class="badge badge-live">PDF available</span>`
     : `<span class="badge badge-soon">Coming soon</span>`;
   const chips = (b.status === "prebook" ? [...b.chips, "Release " + ISLAMER_RELEASE] : b.chips)
-    .map(c => `<span class="chip${/Release|Coming/.test(c) ? " gold" : ""}">${esc(c)}</span>`).join("");
+    .map(c => `<span class="chip${/Release|Coming|PDF available/.test(c) ? " gold" : ""}">${esc(c)}</span>`).join("");
   const multi = b.images.length > 1;
   const titleBnCls = b.id === "voiceup" ? "book-bn" : "book-bn";
   let actions;
-  if (b.status === "soon") {
+  if (b.status === "pdf") {
+    const pp = b.pdfPrice;
+    actions = `<div class="price-line">${pp ? `<span class="big">${rupee(pp)}</span><span class="small">PDF</span>` : `<span class="small">PDF available now · order on WhatsApp</span>`}</div>
+      <div class="book-actions">
+        <button class="btn btn-primary" data-pdf="${b.id}">Get PDF<small>${pp ? rupee(pp) + " · UPI QR" : "Order on WhatsApp"}</small></button>
+        <button class="btn btn-outline" disabled aria-disabled="true" style="opacity:.55;cursor:not-allowed">Hard copy<small>Coming soon</small></button>
+      </div>`;
+  } else if (b.status === "soon") {
     actions = `<div class="soon-note">Not on sale yet. Leave your WhatsApp number and we'll tell you the day it releases.</div>
       <div class="book-actions"><button class="btn btn-primary full" data-notify="${b.id}">${ICON("i-bell")}Notify me on WhatsApp</button></div>`;
   } else {
@@ -969,6 +977,7 @@ function pdfWaLink() { return "https://wa.me/" + PDF_WA_NUMBER + "?text=" + enco
 
 function openPdfModal(id) {
   pdfBook = BOOKS.find(b => b.id === id);
+  if (pdfBook.status === "pdf" && !pdfBook.pdfPrice) return openPdfWaModal(pdfBook);
   const pre = pdfBook.status === "prebook";
   openModal(pre ? "Pre-book PDF" : "Get the PDF", pdfBook.titleBn + " · " + pdfBook.titleEn, "");
   pdfStep1();
@@ -1047,6 +1056,31 @@ function pdfStep3() {
   $("#pdfBack2").addEventListener("click", pdfStep2);
   $("#paidWa").addEventListener("click", () => {
     logToSheet({ type: "pdf_order", orderId: pdfBuyer.orderId, preBooking: pre ? "yes" : "no", bookName: pdfBook.titleEn, name: pdfBuyer.name, phone: pdfBuyer.phone, total: PDF_PRICE, date: nowText() });
+  });
+}
+
+/* ---------- PDF on WhatsApp (book with no PDF price on the site yet, e.g. VOICE UP) ---------- */
+function openPdfWaModal(b) {
+  openModal("Get the PDF", b.titleBn + " · PDF available", `
+    <form id="pdfWaForm" novalidate>
+      <div id="formAlert" aria-live="polite"></div>
+      <div class="field"><label for="wName">Full name / নাম *</label><input id="wName" required autocomplete="name" placeholder="Your full name"></div>
+      <div class="field"><label for="wPhone">WhatsApp number / নম্বর *</label><input id="wPhone" type="tel" inputmode="numeric" maxlength="10" required autocomplete="tel-national" placeholder="10-digit number"></div>
+      <div class="note">Order the PDF on WhatsApp. We reply there with the payment details and send the PDF.<span lang="bn" style="display:block;font-family:var(--bn);font-size:.92em;color:var(--ink-soft)">WhatsApp-এ অর্ডার করুন, আমরা পেমেন্টের তথ্য দিয়ে PDF পাঠাব।</span></div>
+      <div class="note">Hard copy: <b>Coming soon</b></div>
+      <button type="submit" class="btn btn-primary btn-block" style="margin-top:16px">Order PDF on WhatsApp</button>
+    </form>`);
+  $("#pdfWaForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const name = $("#wName").value.trim(), phone = $("#wPhone").value.trim().replace(/\D/g, "");
+    if (!name) return showError("Please enter your name. / নাম লিখুন।");
+    if (!/^[6-9][0-9]{9}$/.test(phone)) return showError("Enter a valid 10-digit WhatsApp number. / সঠিক ১০ সংখ্যার নম্বর দিন।");
+    const orderId = genOrderId("SM-PDF");
+    const saving = logToSheet({ type: "pdf_order", orderId, preBooking: "no", bookName: b.titleEn, name, phone, total: "", date: nowText() });
+    const link = waLink(`Assalamu alaikum, I want the ${b.titleBn} PDF.\n\nName: ${name}\nWhatsApp: ${phone}\nOrder ID: ${orderId}`);
+    $("#orderBody").innerHTML = successView({ heading: "Almost done!", orderId, link,
+      steps: ["Press <b>Send</b> in WhatsApp (it opened with your order).", "We reply with the payment details and send the PDF."] });
+    openWhatsApp(link, saving);
   });
 }
 
